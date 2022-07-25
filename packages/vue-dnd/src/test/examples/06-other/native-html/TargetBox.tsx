@@ -1,6 +1,6 @@
-import type { CSSProperties, FC } from 'react'
-import { useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
+import {CSSProperties, defineComponent} from "vue";
+import {useDrop} from "../../../../dnd";
 
 const style: CSSProperties = {
 	border: '1px solid gray',
@@ -14,9 +14,13 @@ export interface TargetBoxProps {
 	onDrop: (arg: { html: any }) => void
 }
 
-export const TargetBox: FC<TargetBoxProps> = (props) => {
+export const vuePropsType = {
+	onDrop: Function
+}
+
+const TargetBox = defineComponent<TargetBoxProps>((props) => {
 	const { onDrop } = props
-	const [{ canDrop, isOver }, drop] = useDrop(
+	const [dropState, drop] = useDrop(
 		() => ({
 			accept: [NativeTypes.HTML],
 			drop(item: { html: any }) {
@@ -32,10 +36,19 @@ export const TargetBox: FC<TargetBoxProps> = (props) => {
 		[props],
 	)
 
-	const isActive = canDrop && isOver
-	return (
-		<div ref={drop} style={style}>
-			{isActive ? 'Release to drop' : 'Drag HTML here'}
-		</div>
-	)
+	return () => {
+		const { canDrop, isOver } = dropState.value
+		const isActive = canDrop && isOver
+		return (
+			<div ref={drop} style={style}>
+				{isActive ? 'Release to drop' : 'Drag HTML here'}
+			</div>
+		)
+	}
+})
+
+TargetBox.props = vuePropsType
+
+export {
+	TargetBox
 }

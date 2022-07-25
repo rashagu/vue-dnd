@@ -7,6 +7,7 @@ import CopyOrMove from './test/examples/01-dustbin/copy-or-move'
 import CancelOnDropOutside from './test/examples/04-sortable/cancel-on-drop-outside'
 import DragSources from './test/examples/03-nesting/drag-sources'
 import DropTargets from './test/examples/03-nesting/drop-targets'
+import NativeHtml from './test/examples/06-other/native-html'
 interface ExampleProps {
   name?: string
 }
@@ -25,7 +26,8 @@ const App = defineComponent<ExampleProps>((props, {}) => {
         {/*<CopyOrMove />*/}
         {/*<CancelOnDropOutside />*/}
         {/*<DragSources />*/}
-        <DropTargets />
+        {/*<DropTargets />*/}
+        <NativeHtml />
       </DndProvider>
     )
   }

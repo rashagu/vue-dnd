@@ -1,28 +1,23 @@
-import type { FC } from 'react'
-import { useCallback, useState } from 'react'
 
 import { HTMLContent } from './HTMLContent'
 import { TargetBox } from './TargetBox'
+import {ref} from "vue";
 
-export const Container: FC = () => {
-	const [droppedHTML, setDroppedHTML] = useState<string>('')
-
-	const handleHTMLDrop = useCallback(
-		(item: { html: any }) => {
-			if (item) {
-				setDroppedHTML(item.html)
-			}
-		},
-		[setDroppedHTML],
-	)
+export const Container = () => {
+	const droppedHTML = ref('')
+	const handleHTMLDrop = (item: { html: any }) => {
+		if (item) {
+			droppedHTML.value = item.html
+		}
+	}
 
 	return (
 		<>
 			<iframe
-				srcDoc={`<img src='https://react-dnd.github.io/react-dnd/favicon-32x32.png' />`}
+				srcdoc={`<img src='https://react-dnd.github.io/react-dnd/favicon-32x32.png'  alt=""/>`}
 			/>
 			<TargetBox onDrop={handleHTMLDrop} />
-			<HTMLContent html={droppedHTML} />
+			<HTMLContent html={droppedHTML.value} />
 		</>
 	)
 }
