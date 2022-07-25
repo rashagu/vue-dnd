@@ -1,15 +1,20 @@
 
 import type { ConnectDragPreview } from '../types/index'
-import {onMounted} from "vue";
+import {defineComponent, onMounted} from "vue";
 
 export interface DragPreviewImageProps {
 	connect: ConnectDragPreview
 	src: string
 }
+export const vuePropsType = {
+	connect: [Object, Function],
+	src: String
+}
 /**
  * A utility for rendering a drag preview image
  */
-export const DragPreviewImage = ({ connect, src }:any)=> {
+const DragPreviewImage = defineComponent<DragPreviewImageProps>((props) => {
+	const { connect, src } = props
 	onMounted(() => {
 		if (typeof Image === 'undefined') return
 
@@ -27,5 +32,11 @@ export const DragPreviewImage = ({ connect, src }:any)=> {
 		}
 	})
 
-	return null
+	return () => null
+})
+
+DragPreviewImage.props = vuePropsType
+
+export {
+	DragPreviewImage
 }

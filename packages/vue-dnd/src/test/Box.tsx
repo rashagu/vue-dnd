@@ -12,6 +12,7 @@ const style: CSSProperties = {
   cursor: 'move',
   float: 'left',
 }
+
 export interface BoxProps {
   name: string
 }
@@ -27,9 +28,9 @@ const Box = defineComponent<BoxProps>((props, {}) => {
   const slots = useSlots()
   const {name} = props
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [dragState, drag] = useDrag(() => ({
     type: ItemTypes.BOX,
-    item: { name },
+    item: {name},
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult<DropResult>()
       if (item && dropResult) {
@@ -44,13 +45,13 @@ const Box = defineComponent<BoxProps>((props, {}) => {
       })
     },
   }))
-
-  const opacity = isDragging ? 0.4 : 1
-  return ()=>(
-    <div ref={drag} style={{ ...style, opacity }} data-testid={`box`}>
+  return () => {
+    const {isDragging} = dragState.value
+    const opacity = isDragging ? 0.4 : 1
+    return <div ref={drag} style={{...style, opacity}} data-testid={`box`}>
       {name}
     </div>
-  )
+  }
 })
 
 Box.props = vuePropsType

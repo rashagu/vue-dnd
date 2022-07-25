@@ -11,6 +11,7 @@ import { useConnectDragPreview, useConnectDragSource } from './connectors'
 import { useDragSourceConnector } from './useDragSourceConnector'
 import { useDragSourceMonitor } from './useDragSourceMonitor'
 import { useRegisteredDragSource } from './useRegisteredDragSource'
+import {Ref} from "vue";
 
 /**
  * useDragSource hook
@@ -26,7 +27,7 @@ export function useDrag<
 		DragSourceHookSpec<DragObject, DropResult, CollectedProps>
 	>,
 	deps?: unknown[],
-): [CollectedProps, ConnectDragSource, ConnectDragPreview] {
+): [Ref<CollectedProps>, ConnectDragSource, ConnectDragPreview] {
 	const spec = useOptionalFactory(specArg, deps)
 	invariant(
 		!(spec as any).begin,
