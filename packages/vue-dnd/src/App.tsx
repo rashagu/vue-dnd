@@ -1,9 +1,6 @@
 import {defineComponent, ref, h, Fragment, useSlots, withMemo,withCtx,RendererOptions} from 'vue'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import {DndProvider, useDrag} from "./dnd";
-import Comp1 from "./Comp1";
-import Comp2 from "./Comp2";
-import CompBox from "./CompBox";
 import Container from "./test/Container";
 
 interface ExampleProps {
@@ -23,9 +20,6 @@ const App = defineComponent<ExampleProps>((props, {}) => {
     return (
       <DndProvider backend={HTML5Backend}>
         <Container />
-        {/*<CompBox/>*/}
-        {/*<Comp1/>*/}
-        {/*<Comp2/>*/}
       </DndProvider>
     )
   }

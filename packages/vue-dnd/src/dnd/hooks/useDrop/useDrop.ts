@@ -1,4 +1,4 @@
-import type { ConnectDropTarget } from '../../types/index'
+import type { ConnectDropTarget } from '../../types'
 import type { DropTargetHookSpec, FactoryOrInstance } from '../types'
 import { useCollectedProps } from '../useCollectedProps'
 import { useOptionalFactory } from '../useOptionalFactory'
@@ -22,7 +22,7 @@ export function useDrop<
 		DropTargetHookSpec<DragObject, DropResult, CollectedProps>
 	>,
 	deps?: unknown[],
-): [Ref<CollectedProps>, any] {
+): [Ref<CollectedProps>, ConnectDropTarget] {
 	const spec = useOptionalFactory(specArg, deps)
 	const monitor = useDropTargetMonitor<DragObject, DropResult>()
 	const connector = useDropTargetConnector(spec.options)
